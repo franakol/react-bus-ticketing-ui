@@ -144,7 +144,7 @@ const Bookings = () => {
                   <div className="flex flex-col justify-between border-t pt-4 md:border-t-0 md:pt-0 md:border-l md:pl-6 md:ml-6">
                     <div className="text-right mb-4">
                       <p className="text-gray-400 text-sm">Total Amount</p>
-                      <p className="text-secondary text-2xl font-bold">${booking.total_amount}</p>
+                      <p className="text-secondary text-2xl font-bold">{booking.total_amount.toLocaleString()} RWF</p>
                       <p className="text-gray-400 text-xs">
                         {booking.payment_status === 'paid' ? 'Paid' : 'Payment Pending'}
                       </p>

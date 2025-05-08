@@ -93,9 +93,9 @@ const Routes = () => {
               
               <div className="flex justify-between items-center">
                 <span className="text-secondary font-bold">
-                  From ${route.base_price}
+                  From {route.base_price.toLocaleString()} RWF
                 </span>
-                <Link to={`/routes/${route.id}`}>
+                <Link to={`/schedules?routeId=${route.id}`}>
                   <Button variant="accent" className="text-sm">View Schedules</Button>
                 </Link>
               </div>

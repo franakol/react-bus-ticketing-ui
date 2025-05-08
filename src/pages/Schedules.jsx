@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { scheduleService, routeService } from '../services/api';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const Schedules = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const routeIdFromUrl = queryParams.get('routeId');
+  
   const [schedules, setSchedules] = useState([]);
   const [routes, setRoutes] = useState({});
   const [loading, setLoading] = useState(true);
@@ -13,7 +17,8 @@ const Schedules = () => {
   const [filters, setFilters] = useState({
     date: '',
     origin: '',
-    destination: ''
+    destination: '',
+    routeId: routeIdFromUrl || ''
   });
 
   useEffect(() => {
@@ -64,8 +69,9 @@ const Schedules = () => {
     const matchesDate = !filters.date || new Date(schedule.departure_time).toLocaleDateString() === new Date(filters.date).toLocaleDateString();
     const matchesOrigin = !filters.origin || route.origin.toLowerCase().includes(filters.origin.toLowerCase());
     const matchesDestination = !filters.destination || route.destination.toLowerCase().includes(filters.destination.toLowerCase());
+    const matchesRouteId = !filters.routeId || schedule.route_id === Number(filters.routeId);
     
-    return matchesDate && matchesOrigin && matchesDestination;
+    return matchesDate && matchesOrigin && matchesDestination && matchesRouteId;
   });
 
   // Get unique origins and destinations for filter dropdowns
@@ -201,7 +207,7 @@ const Schedules = () => {
                   <div className="flex flex-col justify-between border-t pt-4 md:border-t-0 md:pt-0 md:border-l md:pl-6 md:ml-6">
                     <div className="text-right mb-4">
                       <p className="text-gray-400 text-sm">Price per seat</p>
-                      <p className="text-secondary text-2xl font-bold">${schedule.price}</p>
+                      <p className="text-secondary text-2xl font-bold">{schedule.price.toLocaleString()} RWF</p>
                     </div>
                     
                     <Link to={`/bookings/new?scheduleId=${schedule.id}`}>

@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import RoutesPage from './pages/Routes';
 import Schedules from './pages/Schedules';
 import Bookings from './pages/Bookings';
+import NewBooking from './pages/NewBooking';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -59,6 +60,11 @@ function App() {
             <Route path="bookings" element={
               <ProtectedRoute>
                 <Bookings />
+              </ProtectedRoute>
+            } />
+            <Route path="bookings/new" element={
+              <ProtectedRoute>
+                <NewBooking />
               </ProtectedRoute>
             } />
             

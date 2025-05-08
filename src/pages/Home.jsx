@@ -83,7 +83,7 @@ const Home = () => {
                 <p className="text-gray-400 mb-4">{route.distance} km</p>
                 <div className="flex justify-between items-center">
                   <span className="text-secondary font-bold">
-                    From ${route.base_price}
+                    From {route.base_price.toLocaleString()} RWF
                   </span>
                   <Link to={`/routes/${route.id}`}>
                     <Button variant="accent" className="text-sm">View Details</Button>
